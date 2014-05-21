@@ -54,28 +54,12 @@ dEdet=zeros(length(stateVec),1);
 if opt.mex
     % vis needed for Eapp!!!
     if nargout>1 || opt.wtEapp
-        %%%%% PRML !!!! OFF
-        if sceneInfo.scenario<=400
-            [EdetValue, dEdet, visv, vis, visx, visy, ddvix, ddviy]= ...
-                Edet_mex(X,Y,detMatrices.Xd,detMatrices.Yd,detMatrices.Sd, ...
-                sceneInfo.targetSize,opt.lambda,stateInfo.targetsExist,length(stateVec),opt.occ);
-        else
-            %                     save('tmpvars.mat','X','Y','detMatrices','sceneInfo','opt','stateInfo','stateVec');
-            [EdetValue, dEdet]= ...
-                Edet_sig_mex(X,Y,detMatrices.Xd,detMatrices.Yd,detMatrices.Sd, ...
-                sceneInfo.targetSize,opt.lambda,stateInfo.targetsExist,length(stateVec),opt.occ);
-            %                 pause
-        end
-        
+        [EdetValue, dEdet, visv, vis, visx, visy, ddvix, ddviy]= ...
+            Edet_mex(X,Y,detMatrices.Xd,detMatrices.Yd,detMatrices.Sd, ...
+            sceneInfo.targetSize,opt.lambda,stateInfo.targetsExist,length(stateVec),opt.occ);
     else
-        if sceneInfo.scenario<=400
-            EdetValue=Edet_mex(X,Y,detMatrices.Xd,detMatrices.Yd,detMatrices.Sd, ...
-                sceneInfo.targetSize,opt.lambda,stateInfo.targetsExist,length(stateVec),opt.occ);
-        else
-            [EdetValue, dEdet]= ...
-                Edet_sig_mex(X,Y,detMatrices.Xd,detMatrices.Yd,detMatrices.Sd, ...
-                sceneInfo.targetSize,opt.lambda,stateInfo.targetsExist,length(stateVec),opt.occ);
-        end
+        EdetValue=Edet_mex(X,Y,detMatrices.Xd,detMatrices.Yd,detMatrices.Sd, ...
+            sceneInfo.targetSize,opt.lambda,stateInfo.targetsExist,length(stateVec),opt.occ);
     end
 else
     if nargout>1, %[EdetValue dEdet ds VIS]=Edet(x);

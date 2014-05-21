@@ -9,7 +9,7 @@ if sceneInfo.gtAvailable
     
     % set state struct
     if opt.track3d
-        stateInfo=cutStateToTrackingArea(stateInfo);
+        stateInfo=cutStateToTrackingArea(stateInfo,sceneInfo, opt);
     end
     %             [Xm Ym]=vectorToMatrices(X,stateInfo);
     %             stateInfo.X=Xm; stateInfo.Y=Ym;
