@@ -150,7 +150,7 @@ end
 %      detections(t).diryw=detections(t).dirgtyw;
 % %     detections(t).sc=detections(t).sc ./ max([detections(:).sc]);
 % end
-[detections nPoints]=cutDetections(detections,nPoints);
+[detections, nPoints]=cutDetections(detections,nPoints,sceneInfo,opt);
 % detMatrices=getDetectionMatrices(detections);
 
 % load('/home/aanton/diss/others/yangbo/TUD/TUD_Stadtmitte.avi.detection.mat')
@@ -277,7 +277,7 @@ end
 % initsolfile='tmp.mat';
 if startsol==6
     %% Pirsiavash
-    initsolfile=sprintf('%s/diss/others/pirsiavash/results/startPT-pir-s%04d.mat',homefolder,scenario);
+    initsolfile=sprintf('%s/startPT-pir-s%04d.mat',opt.dpfolder,scenario);
     if exist(initsolfile,'file')
         load(initsolfile);
         
@@ -287,11 +287,11 @@ if startsol==6
         end
         startPT.X=startPT.X;startPT.Y=startPT.Y;
         
-        if opt.track3d && opt.cutToTA,        startPT=cutStateToTrackingArea(startPT);    end
+        if opt.track3d && opt.cutToTA,        startPT=cutStateToTrackingArea(startPT,sceneInfo, opt);    end
         startPT=cropFramesFromGT(sceneInfo,startPT,frames,opt);
         
         fprintf('Pirsiavash Result: \n');
-        [metrics2d metrics3d addInfo2d addInfo3d]=printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
+        [metrics2d, metrics3d, addInfo2d, addInfo3d]=printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
         
         X=startPT.Xi;Y=startPT.Yi;
         if opt.track3d
@@ -301,6 +301,8 @@ if startsol==6
         
         
         % X=X(fr,:);Y=Y(fr,:);H=H(fr,:); % !!!!!! REMOVE
+    else
+        warning('DP result file not found: %s\n',initsolfile);
     end
     
 end

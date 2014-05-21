@@ -16,6 +16,7 @@ opt.cutToTA=1;                  % cut detections, ground truth and result to tra
 opt.remOcc=0;                   % remove occluded GT and result
 
 opt.startsol=6;                 % 1-5 = EKF, 6 = Pirsiavash
+opt.dpfolder=sprintf('../dctracking/data/init/dptracking/');
 
 % optimization
 opt.jumpsOrder=[1 3 4 2 6 5];   % standard: merge grow shrink split add remove
@@ -45,20 +46,9 @@ opt.wtEori=0;
 opt.wtEcnt=0;
 
 opt.detThreshold=.0;
-opt.detThreshold=.4; % Siyu single TUD
-% opt.detThreshold=.7; % Siyu joint TUD
-% opt.detThreshold=0.34;
-% opt.frames=101:150;
-    opt.frames=1:218;
-% opt.detThreshold=.4; % Siyu single TUD
-opt.frames=1:750;
-% opt.frames=1:100;
-% opt.frames=250:400;
  
 % opt.detThreshold=0.0;
 % opt.frames=600:750;
-%  opt.detScale.sigA=-1; % shift TUD
-% opt.detScale.sigB=1; % peakiness TUD
 
 opt.visOptim=1;
 opt.startsol=6;
@@ -70,31 +60,25 @@ opt.startsol=6;
 % opt.wtEper=1.5;
 % opt.wtEreg=.5;
 
-% PRML
-opt.wtEdet=3;               % should be kept at 1
-opt.wtEdyn=.2;
-opt.wtEexc=2;
-opt.wtEper=1;
-opt.wtEreg=3;
-
-
-% PRML Synth
-opt.wtEdet=3;               % should be kept at 1
-opt.wtEdyn=.2;
-opt.wtEexc=2;
-opt.wtEper=1;
-opt.wtEreg=1;
 
 % AFL Synth
-opt.wtEdet=8;               % should be kept at 1
-opt.wtEdyn=2;
-opt.wtEexc=2;
-opt.wtEper=.5;
-opt.wtEreg=.5;
-opt.frames=1:30;
-opt.detThreshold=.0;
-opt.lambda=.5;
-opt.startsol=6;
+% opt.wtEdet=8;               % should be kept at 1
+% opt.wtEdyn=2;
+% opt.wtEexc=2;
+% opt.wtEper=.5;
+% opt.wtEreg=.5;
+% opt.frames=1:3000;
+% opt.lambda=.5;
+% opt.startsol=6;
+
+% KITTI
+opt.frames=1:1000;
+opt.wtEdet=4;
+opt.wtEdyn=20;
+opt.wtEexc=.1;
+opt.wtEreg=2;
+opt.lambda=0.5;
+
 
 % energy weights (default 3d)
 if opt.track3d

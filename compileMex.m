@@ -1,5 +1,5 @@
 
-% compile mex files
+%% compile mex files
 
 srcFiles={'Edet_mex','Edyn_mex','Eexc_mex','Eper_mex','Eori_mex','CLEAR_MOT_mex','vectorToMatrices_mex', ...
    'computeOcclusions2new_mex','gausshist','gausshistdx'};
@@ -16,7 +16,7 @@ for k=1:length(srcFiles)
 end
 
 %% compile utils
-utildir=fullfile('utils');
+utildir=fullfile('external','motutils');
 srcFiles={'allWorldToImage_mex','allWorldToImageWithImDer_mex'};
 srcExt='c';
 srcdir=fullfile(utildir,'mex','src');
