@@ -9,7 +9,7 @@ jobid=str2double(jobid);
 resdir=sprintf('results/%s',settingsDir);
 if ~exist(resdir,'dir'), mkdir(resdir); end
 
-conffile=fullfile(confdir,sprintf('%04d.ini',jobid));
+conffile=fullfile(confdir,'inis',sprintf('%04d.ini',jobid));
 
 
 allscen=dlmread(fullfile(confdir,'doscens.txt'));
