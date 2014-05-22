@@ -16,7 +16,8 @@ opt.cutToTA=1;                  % cut detections, ground truth and result to tra
 opt.remOcc=0;                   % remove occluded GT and result
 
 opt.startsol=6;                 % 1-5 = EKF, 6 = Pirsiavash
-opt.dpfolder=sprintf('../dctracking/data/init/dptracking/');
+opt.EKFDir='../dctracking/data/init/ekftracking';
+opt.DPDir='../dctracking/data/init/dptracking';
 
 % optimization
 opt.jumpsOrder=[1 3 4 2 6 5];   % standard: merge grow shrink split add remove
@@ -72,12 +73,12 @@ opt.startsol=6;
 % opt.startsol=6;
 
 % KITTI
-opt.frames=1:1000;
-opt.wtEdet=4;
-opt.wtEdyn=20;
-opt.wtEexc=.1;
-opt.wtEreg=2;
-opt.lambda=0.5;
+% opt.frames=1:1000;
+% opt.wtEdet=4;
+% opt.wtEdyn=20;
+% opt.wtEexc=.1;
+% opt.wtEreg=2;
+% opt.lambda=0.5;
 
 
 % energy weights (default 3d)

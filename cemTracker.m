@@ -64,10 +64,20 @@ scenario=80;
 if nargin, scenario=scen; end
 
 % fill options struct
-opt=getConOptions;
-if nargin>1
+
+% fill options struct with default if not given as parameter
+% opt=getDCOptions;
+if nargin<2, options='config/default2d.ini'; end
+if isstruct(options)
     opt=options;
+elseif ischar(options)
+    opt=readConOptions(options);
+%         opt
+else
+    error('options parameters not recognized')
 end
+
+
 startsol=opt.startsol;
 
 % what dataset/sequence?
@@ -79,7 +89,7 @@ sceneInfo=getSceneInfo(scenario);
 
 frames=1:length(sceneInfo.frameNums);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-frames=10:20; % do a part of the whole sequence
+% frames=10:20; % do a part of the whole sequence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if exist('./doframes.txt','file'), frl=load('./doframes.txt'); frames=frl(1):frl(2); end
 if exist('/gris/gris-f','dir') && ~exist('frl','var'), frames=1:length(sceneInfo.frameNums); end % if remote and no file
@@ -221,7 +231,7 @@ frtokeep=frames;
 
 X0=X; Y0=Y;
 if startsol<6
-    initsolfile=fullfile(getHomeFolder,'diss','ekftracking','output',sprintf('s%04d',scenario),sprintf('e%04d.mat',startsol));
+    initsolfile=fullfile(opt.EKFDir,sprintf('s%04d',scenario),sprintf('e%04d.mat',startsol));
     if exist(initsolfile,'file')
         load(initsolfile);
         printMessage(2,'EKF file loaded...\n');
@@ -258,7 +268,7 @@ if startsol<6
    
     fprintf('EKF Result: \n');
 
-    [metrics2d metrics3d addInfo2d addInfo3d]=printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
+    [metrics2d, metrics3d, addInfo2d, addInfo3d]=printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
     
 
 end
@@ -277,7 +287,7 @@ end
 % initsolfile='tmp.mat';
 if startsol==6
     %% Pirsiavash
-    initsolfile=sprintf('%s/startPT-pir-s%04d.mat',opt.dpfolder,scenario);
+    initsolfile=sprintf('%s/startPT-pir-s%04d.mat',opt.DPDir,scenario);
     if exist(initsolfile,'file')
         load(initsolfile);
         
