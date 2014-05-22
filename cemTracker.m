@@ -46,6 +46,7 @@ cemStartTime=tic;
 if ~isdeployed,    addpath(genpath('.')); end
 
 homefolder=getHomeFolder();
+addPaths;
 
 % addpath('../dctracking')
 % addpath('../dctracking/splinefit')
