@@ -172,8 +172,9 @@ stateInfo.F=F;                          % number of frames
 if isempty([detections(:).xi])
     fprintf('no detections present\n');
     [metrics2d metrics3d m2i m3i addInfo2d addInfo3d]=getMetricsForEmptySolution();
-    stateInfo.Xi=[];stateInfo.Yi=[];stateInfo.Xgp=[];stateInfo.Ygp=[];stateInfo.X=[];stateInfo.Y=[];
-    stateInfo.X=[];stateInfo.Y=[]; stateInfo.W=[]; stateInfo.H=[];
+    
+stateInfo.Xi=zeros(F,0);stateInfo.Yi=zeros(F,0);stateInfo.Xgp=zeros(F,0);stateInfo.Ygp=zeros(F,0);stateInfo.X=zeros(F,0);stateInfo.Y=zeros(F,0);
+    stateInfo.X=zeros(F,0);stateInfo.Y=zeros(F,0); stateInfo.W=zeros(F,0); stateInfo.H=zeros(F,0);
     stateInfo.stateVec=[];
     stateInfo.sceneInfo=sceneInfo;    stateInfo.opt=opt;
     stateInfo.splines=[];    stateInfo.outlierLabel=0;    stateInfo.labeling=[];
