@@ -54,9 +54,8 @@ end
 
 gtI.frameNums=1:size(gtI.Xi,1);stI.frameNums=1:size(stI.Xi,1);
 gtI.X=gtI.Xi;gtI.Y=gtI.Yi; stI.X=stI.Xi;stI.Y=stI.Yi;
-stI.Xgp=st.X;stI.Ygp=st.Y;gtI.Xgp=gt.X;gtI.Ygp=gt.Y;
+stI.Xgp=stI.X;stI.Ygp=stI.Y;gtI.Xgp=gt.X;gtI.Ygp=gt.Y;
 
-if opt.track3d,
     
 mets2d=CLEAR_MOT(gtI,stI);
 mets3d=zeros(size(mets2d));
