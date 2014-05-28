@@ -173,7 +173,7 @@ if isempty([detections(:).xi])
     fprintf('no detections present\n');
     [metrics2d metrics3d m2i m3i addInfo2d addInfo3d]=getMetricsForEmptySolution();
     stateInfo.Xi=[];stateInfo.Yi=[];stateInfo.Xgp=[];stateInfo.Ygp=[];stateInfo.X=[];stateInfo.Y=[];
-    stateInfo.X=[];stateInfo.Y=[];
+    stateInfo.X=[];stateInfo.Y=[]; stateInfo.W=[]; stateInfo.H=[];
     stateInfo.stateVec=[];
     stateInfo.sceneInfo=sceneInfo;    stateInfo.opt=opt;
     stateInfo.splines=[];    stateInfo.outlierLabel=0;    stateInfo.labeling=[];
