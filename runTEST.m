@@ -1,7 +1,7 @@
 global opt
-allscen=550:578;
+allscen=700:720;
 
-settingsDir='KITTI_TEST';
+settingsDir='KITTI_PED';
 jobid=73;
 
 confdir=sprintf('config/%s',settingsDir);
@@ -34,7 +34,7 @@ for scenario=allscen
 end
 toc
 
-
+mets=[];
 resultsfile=fullfile(resdir,sprintf('res_%03d.mat',jobid));
 save(resultsfile,'allmets*','allens','allInfo','mets*');
 
@@ -42,5 +42,26 @@ save(resultsfile,'allmets*','allens','allInfo','mets*');
 for scenario=allscen
     resultsfile=fullfile(resdir,sprintf('res_%03d-scen%04d.mat',jobid,scenario));
     if exist(resultsfile,'file'),        delete(resultsfile);    end
+end
+
+
+
+%%
+resultsfile=fullfile(resdir,sprintf('res_%03d.mat',jobid));
+
+thiswd=pwd;
+load(resultsfile);
+
+pathToKittiDevkit='/home/amilan/storage/databases/KITTI/tracking/devkit_tracking/python';
+
+
+% allscen=750:778;
+for scenario=allscen
+    stateInfo=allInfo(scenario,6).stateInfo;
+    cd(thiswd)
+    tracklets=convertToKITTI(stateInfo,'Pedestrian');
+    cd(pathToKittiDevkit)
+    
+    writeLabels(tracklets,'results/a/data',scenario-700);
 end
 

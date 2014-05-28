@@ -288,9 +288,14 @@ end
 % initsolfile='tmp.mat';
 if startsol==6
     %% Pirsiavash
-    initsolfile=sprintf('%s/startPT-pir-s%04d.mat',opt.DPDir,scenario);
-    if exist(initsolfile,'file')
-        load(initsolfile);
+%     initsolfile=sprintf('%s/startPT-pir-s%04d.mat',opt.DPDir,scenario);
+        
+    % just compute it on the fly
+    pOpt=getPirOptions;
+    [metrics2d, metrics3d, allene, startPT]=runDP(scenario,pOpt,opt);
+    
+%     if exist(initsolfile,'file')
+%         load(initsolfile);
         
         if opt.track3d
             [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
@@ -312,9 +317,9 @@ if startsol==6
         
         
         % X=X(fr,:);Y=Y(fr,:);H=H(fr,:); % !!!!!! REMOVE
-    else
-        warning('DP result file not found: %s\n',initsolfile);
-    end
+%     else
+%         warning('DP result file not found: %s\n',initsolfile);
+%     end
     
 end
 
