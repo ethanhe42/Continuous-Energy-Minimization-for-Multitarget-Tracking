@@ -1,6 +1,5 @@
 Continuous Energy Minimization for Multitarget Tracking
 =======================================================
-
 Anton Milan and Stefan Roth and Konrad Schindler
 ------------------------------------------------
 
@@ -45,7 +44,7 @@ To use this software, you should cite a subset of these publications:
         A. Andriyenko, S. Roth, and K. Schindler. 
         In IEEE International Workshop on Visual Surveillance (in conjunction with ICCV), Barcelona, Spain, November 2011 
 
-All papers are available [(here)] (http://research.milanton.net)
+All papers are available [(here)](http://research.milanton.net)
 
 
 Installation
