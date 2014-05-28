@@ -1,11 +1,9 @@
-###################################################################
-#                                                                 #
-#     Continuous Energy Minimization For Multitarget Tracking     #
-#         Anton Milan and Stefan Roth and Konrad Schindler        #
-#                                                                 #
-#                Copyright 2010-2014 Anton Milan                  #
-#                                                                 #
-###################################################################
+Continuous Energy Minimization for Multitarget Tracking
+=======================================================
+
+Anton Milan and Stefan Roth and Konrad Schindler
+------------------------------------------------
+
 
 
 
@@ -16,18 +14,19 @@ This software implements our approach to multi-target tracking
 using continuous energy minimization [1,2,3].
 
 The additional package
- - minimize.m
+	- minimize.m
  
 is released under a different license and is included for your convenience.
 
 
 
-==========================================================================
+
 DISCLAIMER:
+===========
 This software has been refactored for the sake of simplifying the
 implementation. Therefore, the results produced by the code may differ
 from those presented in the papers [1,2,3].
-==========================================================================
+
 
 
 To use this software, you should cite the following in any resulting publication:
