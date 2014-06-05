@@ -44,7 +44,7 @@ To use this software, you should cite a subset of these publications:
         A. Andriyenko, S. Roth, and K. Schindler. 
         In IEEE International Workshop on Visual Surveillance (in conjunction with ICCV), Barcelona, Spain, November 2011 
 
-All papers are available [(here)](http://research.milanton.net)
+All papers are available [here](http://research.milanton.net)
 
 
 Installation
@@ -54,8 +54,8 @@ Open a terminal window.
 
 Get the code
 
-    hg clone https://bitbucket.org/amilan/dctracking
-    cd dctracking
+    hg clone https://bitbucket.org/amilan/contracking
+    cd contracking
     
 
 Start MATLAB and run compileMex.m to build the utilities binaries.
