@@ -19,8 +19,8 @@
 %
 %
 %
-% This code contains modifications compared to the 
-% one that was used to produce results for our 
+% This code contains modifications compared to the
+% one that was used to produce results for our
 % CVPR 2011, VS 2011 and PAMI 2014 papers
 %
 %
@@ -37,22 +37,38 @@
 clear all; clear global
 % set start time
 
+
+% download demo sequence
+% if ~exist('demo','dir'), mkdir('demo'); end
+if ~exist('demo.zip','file')
+    fprintf('Downloading demo sequence (ca. 6MB) ...\n');
+    try urlwrite('http://research.milanton.net/files/demo-tracking.zip','demo.zip')
+    catch err, error('Download failed! %s',err.identifier);
+    end
+end
+
+unzip('demo.zip');
+
+
+
 global cemStartTime
 cemStartTime=tic;
 
 addpath(genpath('.'))
 %% declare global variables
-global detMatrices detections sceneInfo opt globiter gtInfo
-globiter=0;
+global detMatrices detections sceneInfo opt globiter gtInfo scenario
+globiter=0; scenario=80;
 
 global LOG_allens LOG_allmets2d LOG_allmets3d %for debug output
 
 %% setup options and scene
 % fill options struct
-opt=getConOptionsDemo;
+opt=readConOptions('config/default3d.ini');
 
 % fill scene info
 sceneInfo=getSceneInfoConDemo;
+frames=1:length(sceneInfo.frameNums);
+sceneInfo.scenario=scenario;
 
 %% cut ground truth
 gtInfo=cutGTToTrackingArea(gtInfo,sceneInfo);
@@ -62,16 +78,43 @@ gtInfo=cutGTToTrackingArea(gtInfo,sceneInfo);
 stateInfo.F=size(detections,2);
 
 % cut detections to tracking area if needed
-[detections nDets]=cutDetections(detections,nDets);
+[detections nDets]=cutDetections(detections,nDets,sceneInfo, opt);
 detMatrices=getDetectionMatrices(detections);
 
 
 %% init solution
 X=[]; Y=[];
-initsolfile=fullfile('demo','ekf','e0001.mat');
-load(initsolfile);
-[X, Y, stateInfo]=cleanState(X, Y, stateInfo);
-[X Y]=checkInitSolution(X,Y,stateInfo.F);
+if opt.startsol==6
+    %% Pirsiavash
+    %     initsolfile=sprintf('%s/startPT-pir-s%04d.mat',opt.DPDir,scenario);
+    
+    % just compute it on the fly
+    pOpt=getPirOptions;
+    [metrics2d, metrics3d, allene, startPT]=runDP(scenario,pOpt,opt);
+    
+    if opt.track3d
+        [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
+        startPT.Xgp=startPT.X;startPT.Ygp=startPT.Y;
+    end
+%     startPT.X=startPT.Xi;startPT.Y=startPT.Yi;
+    
+    if opt.track3d && opt.cutToTA,        startPT=cutStateToTrackingArea(startPT,sceneInfo, opt);    end
+    startPT=cropFramesFromGT(sceneInfo,startPT,frames,opt);
+    
+    fprintf('Pirsiavash Result: \n');
+    [metrics2d, metrics3d, addInfo2d, addInfo3d]=printFinalEvaluation(startPT, gtInfo, sceneInfo, opt);
+    
+    X=startPT.Xi;Y=startPT.Yi;
+    if opt.track3d
+        [X Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
+    end    
+end
+
+
+if ~isempty(X)
+    [X, Y, stateInfo]=cleanState(X, Y, stateInfo);
+    [X Y]=checkInitSolution(X,Y,stateInfo.F);
+end
 
 stateInfo.N=size(X,2);
 stateInfo.targetsExist=getTracksLifeSpans(X);
@@ -97,13 +140,13 @@ while ~converged && epoch<opt.maxEpochs
     for jumpMove=opt.jumpsOrder
         stateInfoOld=stateInfo;
         eval(sprintf('stateInfo=%s(stateInfo);',getJumpMoveFunction(jumpMove)))
-         
+        
         % did we jump?
         if isequal(stateInfoOld,stateInfo) % no
             printMoveFailure(jumpMove)
-        
-        %  perform conjugate gradient descent if move was successful
-        else  
+            
+            %  perform conjugate gradient descent if move was successful
+        else
             jumpExecuted(jumpMove)=1;
             [stateInfo.stateVec Evalue nIterations]=minimize(stateInfo.stateVec,'E',opt.maxIterCGD,stateInfo);
         end
@@ -134,7 +177,7 @@ stateInfo=postProcessState(stateInfo);
 
 
 %% if we have ground truth, evaluate results
-printFinalEvaluation(stateInfo, gtInfo, sceneInfo, opt)
+printFinalEvaluation(stateInfo, gtInfo, sceneInfo, opt);
 
 %% clean up (remove zero rows from logs)
 itinfo=find(sum(LOG_allens,2));
@@ -142,6 +185,8 @@ LOG_allmets2d=LOG_allmets2d(~~sum(LOG_allmets2d,2),:);
 LOG_allmets3d=LOG_allmets3d(~~sum(LOG_allmets3d,2),:);
 LOG_allens=LOG_allens(~~sum(LOG_allens,2),:);
 
+stateInfo.sceneInfo=sceneInfo;
+stateInfo.opt=opt;
 
 % you can display the results with
 displayTrackingResult(sceneInfo,stateInfo)
