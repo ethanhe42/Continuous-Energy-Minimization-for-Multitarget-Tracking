@@ -23,14 +23,35 @@ function sceneInfo=getSceneInfoConDemo
 
 global opt
 dbfolder='demo';
+
+% set detections file
 sceneInfo.detfile=fullfile(dbfolder,'det','PETS2009-S3MF1-c1-det.xml');
-sceneInfo.frameNums=1:107;
+
+% set image folder
 sceneInfo.imgFolder=fullfile(dbfolder,'img',filesep);
-sceneInfo.imgFileFormat='frame_%04d.jpg';
+
+
+[sceneInfo.imgFileFormat, imgExt, sceneInfo.frameNums] = ...
+    getImgFormat(sceneInfo.imgFolder, '');
+
+% append file extension
+sceneInfo.imgFileFormat=[sceneInfo.imgFileFormat imgExt];
 
 % image dimensions
 [sceneInfo.imgHeight, sceneInfo.imgWidth, ~]= ...
     size(imread([sceneInfo.imgFolder sprintf(sceneInfo.imgFileFormat,sceneInfo.frameNums(1))]));
+
+% sequence name
+sceneInfo.sequence='PETS2009-S3MF1-c1';
+
+%% dataset
+sceneInfo.dataset='PETS2009';
+
+%% frame rate
+sceneInfo.frameRate=7;
+
+% yshift
+sceneInfo.yshift=0;
 
 
 %% tracking area
@@ -98,7 +119,7 @@ if ~isempty(sceneInfo.gtFile)
             [gtInfo.Xgp gtInfo.Ygp]=projectToGroundPlane(gtInfo.X, gtInfo.Y, sceneInfo);
         end
     end
-    
+    gtInfo.Xi=gtInfo.X; gtInfo.Yi=gtInfo.Y;
     %     if strcmpi(fileext,'.xml'),     save(fullfile(pathtogt,[gtfile '.mat']),'gtInfo'); end
 end
 
