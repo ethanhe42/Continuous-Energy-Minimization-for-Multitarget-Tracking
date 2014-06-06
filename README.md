@@ -70,5 +70,6 @@ run cemTrackerDemo.m
 
 CHANGES
 
+	Jun 06, 2014	Included Dynamic Programming [Pirsiavash et al., CVPR '11] as initialization
 	May 25, 2014	Included PAMI code
 	May 25, 2012	Initial public release
