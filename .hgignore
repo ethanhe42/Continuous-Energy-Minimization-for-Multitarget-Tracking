@@ -2,3 +2,4 @@ syntax: glob
 *.mexa64
 results/*
 config/*
+tmp/*

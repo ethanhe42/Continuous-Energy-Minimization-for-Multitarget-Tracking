@@ -1,7 +1,7 @@
 global opt
-allscen=700:720;
+allscen=850:878;
 
-settingsDir='KITTI_PED';
+settingsDir='KITTI_TEST';
 jobid=73;
 
 confdir=sprintf('config/%s',settingsDir);
