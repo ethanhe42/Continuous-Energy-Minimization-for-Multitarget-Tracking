@@ -54,7 +54,12 @@ Open a terminal window.
 
 Get the code
 
-    hg clone https://bitbucket.org/amilan/contracking
+    hg clone https://bitbucket.org/amilan/contracking    
+    
+### MOT utils
+This package includes many useful functions for reading detections, displaying results, etc.
+    
+    hg clone https://bitbucket.org/amilan/motutils
     cd contracking
     
 
