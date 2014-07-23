@@ -4,8 +4,8 @@
 srcFiles={'Edet_mex','Edyn_mex','Eexc_mex','Eper_mex','Eori_mex','CLEAR_MOT_mex','vectorToMatrices_mex', ...
    'computeOcclusions2new_mex','gausshist','gausshistdx'};
 srcExt='c';
-srcdir=fullfile('mex','src');
-outdir=fullfile('mex','bin');
+srcdir=fullfile(pwd,'mex','src');
+outdir=fullfile(pwd,'mex','bin');
 
 if ~exist(outdir,'dir'), mkdir(outdir); end
 
