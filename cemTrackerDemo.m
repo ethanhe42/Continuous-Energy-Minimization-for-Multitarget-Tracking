@@ -54,7 +54,7 @@ unzip('demo.zip');
 global cemStartTime
 cemStartTime=tic;
 
-addpath(genpath('.'))
+addpath(genpath('..'))
 %% declare global variables
 global detMatrices detections sceneInfo opt globiter gtInfo scenario
 globiter=0; scenario=80;
@@ -90,7 +90,7 @@ if opt.startsol==6
     
     % just compute it on the fly
     pOpt=getPirOptions;
-    [metrics2d, metrics3d, allene, startPT]=runDP(scenario,pOpt,opt);
+    startPT=runDP(detections,pOpt,opt);
     
     if opt.track3d
         [startPT.X,startPT.Y]=projectToGroundPlane(startPT.Xi,startPT.Yi,sceneInfo);
