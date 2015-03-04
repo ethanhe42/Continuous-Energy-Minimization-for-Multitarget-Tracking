@@ -16,7 +16,7 @@ for k=1:length(srcFiles)
 end
 
 %% compile utils
-utildir=fullfile('external','motutils');
+utildir=fullfile('..','motutils');
 srcFiles={'allWorldToImage_mex','allWorldToImageWithImDer_mex'};
 srcExt='c';
 srcdir=fullfile(utildir,'mex','src');

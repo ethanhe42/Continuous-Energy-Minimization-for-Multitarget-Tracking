@@ -3,3 +3,4 @@ syntax: glob
 results/*
 config/*
 tmp/*
+demo/img/*

@@ -49,7 +49,7 @@ All papers are available [here](http://research.milanton.net)
 
 Installation
 ============
-This section describes how to get dctracking running under Linux.
+This section describes how to get cemtracking running under Linux.
 Open a terminal window.
 
 Get the code
@@ -63,18 +63,19 @@ This package includes many useful functions for reading detections, displaying r
     cd contracking
     
 
-Start MATLAB and run compileMex.m to build the utilities binaries.
+Start MATLAB and run `compileMex.m` to build the utilities binaries.
 
 
 Running
 =======
 
-run cemTrackerDemo.m
+run `cemTrackerDemo.m`
 
 
 
 CHANGES
 
+	Mar 04, 2015	Bug fix with compileMex and runDP (Thanks Qi Guo)
 	Jun 06, 2014	Included Dynamic Programming [Pirsiavash et al., CVPR '11] as initialization
 	May 25, 2014	Included PAMI code
 	May 25, 2012	Initial public release
