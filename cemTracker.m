@@ -293,7 +293,7 @@ if startsol==6
         
     % just compute it on the fly
     pOpt=getPirOptions;
-    [metrics2d, metrics3d, allene, startPT]=runDP(scenario,pOpt,opt);
+    startPT=runDP(detections,pOpt,opt);
     
 %     if exist(initsolfile,'file')
 %         load(initsolfile);
