@@ -4,3 +4,4 @@ results/*
 config/*
 tmp/*
 demo/img/*
+logs/*
