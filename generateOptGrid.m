@@ -10,6 +10,16 @@ searchpar.lambda=0.05:0.05:0.15;
 outdir='config/KITTI';
 
 
+%%%%%%%
+opt.track3d=1; opt.cutToTA=1;
+searchpar.wtEdyn=[.01, .03, .05];
+searchpar.wtEexc=.5:.5:1.5;
+searchpar.wtEper=.5:.5:1;
+searchpar.wtEreg=.25:.25:.75;
+searchpar.lambda=0.05:0.05:0.15;
+outdir='config/PETSTUD/inis';
+
+
 fnames=fieldnames(searchpar);
 fn=length(fnames);
 parHCube=zeros(1,fn);
