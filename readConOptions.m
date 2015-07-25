@@ -39,7 +39,8 @@ if isfield(opt,'sigA') && isfield(opt,'sigB')
 end
 
 % Appearance
-app=fillInOpt(opt,ini,'Appearance');
+app=[];
+app=fillInOpt(app,ini,'Appearance');
 opt.app=app;
 
 % Misc
